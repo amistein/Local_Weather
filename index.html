@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:700,400' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<title>Local Weather</title>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-4 col-xs-offset-4">
+        <h1 id="header">Local Weather</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2 col-xs-offset-5">
+        <div id="i-box">
+          <img id="icon" src="images/sun.png">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2 col-xs-offset-5">
+        <h2 id="temp"></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div id="b-box">
+        <a href="#" class="myButton">celcius</a>
+      </div>
+    </div>
+    <div class="row">
+      <div id="c-box" class="col-xs-4 col-xs-offset-4">
+        <h4 id="city"></h4>
+      </div>
+    </div>
+  </div>
+</body>
+    
+
+<script>
+var temp;
+var scale = "F";
+var lat;
+var long;
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
+
+    var w_request = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial";
+
+    $.getJSON(w_request, function(data) {
+      temp = data.main.temp;
+      $("#temp").html(Math.floor(temp) + "&deg; " + scale);
+      var icon = data.weather[0].icon;
+      $("#icon").attr("src", "http://openweathermap.org/img/w/" + icon + ".png");
+    });
+
+    var g_request = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," +
+    long + "&sensor=true";
+
+    $.getJSON(g_request, function(data) {
+      var city = data.results[0].formatted_address.match(/, .*/);
+      city = city[0].replace(/, /, "");
+      city = city.replace(/ [0-9].*/, "");
+      $("#city").html(city);
+    });
+
+  });
+} 
+else {
+  x.html("Geolocation is not supported by this browser.");
+}
+
+$(".myButton").click(function() {
+  if (scale == "F") {
+    temp = (temp - 32) / 1.8;
+    scale = "C";
+    $("#temp").html(Math.floor(temp) + "&deg; " + scale);
+    $(".myButton").html("farenheit");
+  }
+  else {
+    temp = temp * 1.8 + 32;
+    scale = "F";
+    $("#temp").html(Math.floor(temp) + "&deg; " + scale);
+    $(".myButton").html("celcius");
+  }
+  
+});
+
+</script>

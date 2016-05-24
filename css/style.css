@@ -1,0 +1,76 @@
+html, body, .container-fluid {
+	height: 100%;
+}
+
+.container-fluid {
+	background-color: silver;
+}
+
+#header {
+	text-align: center;
+  margin-top: 25%;
+  margin-bottom: 35px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+}
+
+#i-box {
+	max-width: 125px;
+  margin: 0 auto;
+}
+
+#icon {
+  width: 100%;
+}
+
+#temp {
+  font-family: serif;
+  font-weight: bolder;
+  text-align: center;
+}
+
+#b-box {
+  width: 57px;
+  height: 22px;
+  margin: 0 auto;
+  
+}
+
+#city {
+	text-align: center;
+}
+
+.myButton {
+  background-color:#44c767;
+  -moz-border-radius:28px;
+  -webkit-border-radius:28px;
+  border-radius:28px;
+  border:1px solid #18ab29;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:12px;
+  padding:1px 8px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #2f6627;
+  text-align: center;
+  float: bottom;
+}
+.myButton:hover {
+  background-color:#5cbf2a;
+}
+.myButton:active {
+  position:relative;
+  top:1px;
+}
+
+#c-box {
+  margin-top: 30px;
+}
+
+#credit {
+  position: absolute;
+  bottom: 5px;
+  right: 15px;
+}
