@@ -51,7 +51,7 @@ if (navigator.geolocation) {
     lat = position.coords.latitude;
     long = position.coords.longitude;
 
-    var w_request = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial";
+    var w_request = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&APPID=d0b70209a1d1b6cab516fdbfa70baa84";
 
     $.getJSON(w_request, function(data) {
       temp = data.main.temp;
