@@ -45,6 +45,7 @@ var temp;
 var scale = "F";
 var lat;
 var long;
+var zip;
 
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function(position) {
@@ -70,10 +71,24 @@ if (navigator.geolocation) {
       $("#city").html(city);
     });
 
-  });
+  }, 
+  // if error in getting geolocation property get location from ip-address
+  function() {
+    $.getJSON("http://ip-api.com/json", function(data) {
+      $("#city").html(data.city + ", " + data.region);
+      zip = data.zip;
+      var zip_request = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip + "&units=imperial&APPID=d0b70209a1d1b6cab516fdbfa70baa84";
+      $.getJSON(zip_request, function(data) {
+        temp = data.main.temp;
+        $("#temp").html(Math.floor(temp) + "&deg; " + scale);
+        var icon = data.weather[0].icon;
+        $("#icon").attr("src", "http://openweathermap.org/img/w/" + icon + ".png");
+      });
+    }); 
+  }, {timeout: 10000});
 } 
 else {
-  x.html("Geolocation is not supported by this browser.");
+  $("#city").html("Geolocation is not supported by this browser.");
 }
 
 $(".myButton").click(function() {
